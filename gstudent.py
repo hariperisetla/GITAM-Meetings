@@ -5,16 +5,24 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os
+import csv
 
-def main(usernameInput, passwordInput, width, height):
+from datetime import datetime
+import bot
+# now = datetime.now()
+
+# current_time = now.strftime("%H:%M:%S")
+# print("Current Time =", current_time)
+
+def main(usernameInput, passwordInput, width, height, hookName):
     # user inputs
     with open('save.txt', 'w') as f:
-        f.write(usernameInput + ',' + passwordInput + ',' + width + ',' + height + ',')
+        f.write(usernameInput + ',' + passwordInput + ',' + width + ',' + height + ',' + hookName)
 
     # declaring the driver
 
     options = webdriver.ChromeOptions()
-    options.binary_location = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+    options.binary_location = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
     chrome_driver_binary = "chromedriver.exe"
     driver = webdriver.Chrome(chrome_driver_binary, options=options)
 
@@ -47,9 +55,29 @@ def main(usernameInput, passwordInput, width, height):
     glearn = driver.find_element_by_xpath('//*[@id="form1"]/div[4]/ul/li[1]')
     glearn.click()
 
-    # handling the handles for the multiple tab selection
-    #handles declaration
+    driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
 
+    meetings = driver.find_elements_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr')
+
+    n = len(meetings)
+    # print(n, type(n))
+
+    meet = []
+
+    for i in range(1,n):
+        details = [driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a/div/h4').text,
+                    driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a/div/h6').text,
+                    driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a').get_attribute('href')]
+        meet.append(details)
+
+    # print(meet)
+
+
+    with open("meet.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(meet)
+
+    bot.bot(hookName, usernameInput)
 
     #looping all the available tabs
     def closeTab():
@@ -83,7 +111,9 @@ def main(usernameInput, passwordInput, width, height):
         # looping through the pages in a 300s time interval // here 1 = 1s so, 300 = 300s = 5m
         while 1==1:
             # sleeping for 300s
+            
             print('Sleeping for 300s')
+
             time.sleep(300)
             # navigating to the attendance page
             print('Clicking Attendance Page')
@@ -112,22 +142,38 @@ def login():
 
     return usernameInput, passwordInput, width, height
 
-if os.path.isfile('save.txt'):
+def isBot():
+    print('Do you want to integrate with your discord webhook?[y, n]: ')
+    isBot = input()
 
+    if isBot == 'y' or isBot == 'Y':
+        hookName = input("Enter your webhook link: ")
+    
+    else:
+        hookName=""
+        pass
+
+    return hookName
+
+if os.path.isfile('save.txt'):
     with open('save.txt', 'r') as f:
             loginDetails = f.read()
             if loginDetails == '':
                 print('There are no saved settings!')
                 print('Please enter login details: ')
                 usernameInput, passwordInput, width, height = login()
-                main(usernameInput, passwordInput, width, height)
+                hookName = isBot()
+
+                main(usernameInput, passwordInput, width, height, hookName)
 
             else:
                 openSaved = input('Do you want to open your saved settings? [y, n]: ')
 
                 if openSaved == 'n' or openSaved == 'N':
                     usernameInput, passwordInput, width, height = login()
-                    main(usernameInput, passwordInput, width, height)
+                    hookName = isBot()
+
+                    main(usernameInput, passwordInput, width, height, hookName)
 
                 elif openSaved == 'y' or openSaved == 'Y':
 
@@ -139,7 +185,8 @@ if os.path.isfile('save.txt'):
                         passwordInput = loginDetails[1]
                         width = loginDetails[2]
                         height = loginDetails[3]
-                    main(usernameInput, passwordInput, width, height)
+                        hookName = loginDetails[4]
+                    main(usernameInput, passwordInput, width, height, hookName)
                     
                 else:
                     print('Wrong input! Please restart the program!')
@@ -147,4 +194,5 @@ if os.path.isfile('save.txt'):
 
 else:    
     usernameInput, passwordInput, width, height = login()
-    main(usernameInput, passwordInput, width, height)
+    hookName = isBot()
+    main(usernameInput, passwordInput, width, height, hookName)
