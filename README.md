@@ -27,6 +27,7 @@ git clone https://github.com/hariperisetla4431/GITAM-AutoLogin
    - The script can be opened by opening the gstudent.exe or gstudent-32.exe files
    - Depending upon the PC Configuration the cmd files may load slowly.
    - If your login is new after you are logged in all the settings are automatically saved to the local save.txt file. In the next login session you may use the previous settings or you can overrite the existing settings.
+   - To stop the script press ctrl+c
 
 ## Issues
    Ran into an issue? No problem! Create a new issue and I will help you!
