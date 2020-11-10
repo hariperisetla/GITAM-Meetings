@@ -22,7 +22,7 @@ def main(usernameInput, passwordInput, width, height, hookName):
     # declaring the driver
 
     options = webdriver.ChromeOptions()
-    options.binary_location = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+    options.binary_location = "C:/Program Files/Google/Chrome/Application/chrome.exe"
     chrome_driver_binary = "chromedriver.exe"
     driver = webdriver.Chrome(chrome_driver_binary, options=options)
 

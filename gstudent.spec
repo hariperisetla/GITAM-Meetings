@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['gstudent.py'],
-             pathex=['G:\\gstudent-login'],
+             pathex=['G:\\Hari\\github-cloud\\GITAM-AutoLogin'],
              binaries=[],
              datas=[],
              hiddenimports=[],

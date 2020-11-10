@@ -9,8 +9,8 @@ def bot(hookName, username):
         hook = Webhook(hookName)
 
         embed = Embed(
-            description="Test description",
-            color=0x000,
+            description="GITAM Meetings",
+            color=0xB1040E,
             timestamp="now"
         )
 
