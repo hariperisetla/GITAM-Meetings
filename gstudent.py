@@ -64,7 +64,7 @@ def main(usernameInput, passwordInput, width, height, hookName):
 
     meet = []
 
-    for i in range(1,n):
+    for i in range(1,n+1):
         details = [driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a/div/h4').text,
                     driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a/div/h6').text,
                     driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a').get_attribute('href')]
