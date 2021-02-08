@@ -1,4 +1,4 @@
-# GITAM-AutoLogin
+# GITAM-Meetings-Updater
 
 GITAM Auto Login is a simple python script to automate the login process of the GITAM website to make the students life easier without having the trouble of logging in when there is a timeout for every few minutes by the server. 
 
