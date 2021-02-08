@@ -22,7 +22,7 @@ https://github.com/hariperisetla4431/GITAM-Meetings/archive/main.zip
 ### Clone the repo:
    - using CLI:
 ```
-git clone https://github.com/hariperisetla4431/GITAM-AutoLogin
+git clone https://github.com/hariperisetla4431/GITAM-Meetings
 ```
    - using link:
                  
