@@ -9,15 +9,16 @@ import csv
 
 from datetime import datetime
 import bot
+import tbot
 # now = datetime.now()
 
 # current_time = now.strftime("%H:%M:%S")
 # print("Current Time =", current_time)
 
-def main(usernameInput, passwordInput, width, height, hookName):
+def main(usernameInput, passwordInput, width, height, hookName, token):
     # user inputs
     with open('save.txt', 'w') as f:
-        f.write(usernameInput + ',' + passwordInput + ',' + width + ',' + height + ',' + hookName)
+        f.write(usernameInput + ',' + passwordInput + ',' + width + ',' + height + ',' + hookName + ',' + token)
 
     # declaring the driver
 
@@ -51,7 +52,7 @@ def main(usernameInput, passwordInput, width, height, hookName):
     driver.implicitly_wait(30)
     myElem = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="form1"]/div[3]/section[2]/div/div/div[1]/h5')))
 
-    # clicking and opening glearn site
+    # clicking and opening glearn sitye
     glearn = driver.find_element_by_xpath('//*[@id="form1"]/div[4]/ul/li[1]')
     glearn.click()
 
@@ -60,11 +61,12 @@ def main(usernameInput, passwordInput, width, height, hookName):
     meetings = driver.find_elements_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr')
 
     n = len(meetings)
-    # print(n, type(n))
+    print(n, type(n))   
+    
 
     meet = []
 
-    for i in range(1,n+1):
+    for i in range(1, n+1):
         details = [driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a/div/h4').text,
                     driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a/div/h6').text,
                     driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_GridViewonline"]/tbody/tr[' + str(i) + ']/td/a').get_attribute('href')]
@@ -78,7 +80,7 @@ def main(usernameInput, passwordInput, width, height, hookName):
         writer.writerows(meet)
 
     bot.bot(hookName, usernameInput)
-
+    tbot.tbot(token)
     #looping all the available tabs
     def closeTab():
         handles = driver.window_handles
@@ -155,6 +157,19 @@ def isBot():
 
     return hookName
 
+def isTBot():
+    print('Do you want to integrate with your Telegram Bot?[y, n]: ')
+    isTBot = input()
+
+    if isTBot == 'y' or isTBot == 'Y':
+        token = input("Enter your webhook link: ")
+    
+    else:
+        token=""
+        pass
+
+    return token
+
 if os.path.isfile('save.txt'):
     with open('save.txt', 'r') as f:
             loginDetails = f.read()
@@ -163,8 +178,8 @@ if os.path.isfile('save.txt'):
                 print('Please enter login details: ')
                 usernameInput, passwordInput, width, height = login()
                 hookName = isBot()
-
-                main(usernameInput, passwordInput, width, height, hookName)
+                token = isTBot()
+                main(usernameInput, passwordInput, width, height, hookName, token)
 
             else:
                 openSaved = input('Do you want to open your saved settings? [y, n]: ')
@@ -172,8 +187,8 @@ if os.path.isfile('save.txt'):
                 if openSaved == 'n' or openSaved == 'N':
                     usernameInput, passwordInput, width, height = login()
                     hookName = isBot()
-
-                    main(usernameInput, passwordInput, width, height, hookName)
+                    token = isTBot()
+                    main(usernameInput, passwordInput, width, height, hookName, token)
 
                 elif openSaved == 'y' or openSaved == 'Y':
 
@@ -186,7 +201,8 @@ if os.path.isfile('save.txt'):
                         width = loginDetails[2]
                         height = loginDetails[3]
                         hookName = loginDetails[4]
-                    main(usernameInput, passwordInput, width, height, hookName)
+                        token = loginDetails[5]
+                    main(usernameInput, passwordInput, width, height, hookName, token)
                     
                 else:
                     print('Wrong input! Please restart the program!')
@@ -195,4 +211,5 @@ if os.path.isfile('save.txt'):
 else:    
     usernameInput, passwordInput, width, height = login()
     hookName = isBot()
-    main(usernameInput, passwordInput, width, height, hookName)
+    token = isTBot()
+    main(usernameInput, passwordInput, width, height, hookName, token)

@@ -1,3 +1,4 @@
+
 # GITAM-Meetings
 
 GITAM Meetings is a simple python script to automate the login process of the GITAM website to make the students life easier in this pandemic without having the trouble of logging in when there is a timeout for every few minutes by the server. This script comes handy as it helps in retrieving the scheduled zoom meetings links, title, timings and captures them and they can be saved into a .csv file or can be updated into any Discord Server or Telegram bots. 
