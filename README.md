@@ -17,7 +17,7 @@ GITAM Meetings is a simple python script to automate the login process of the GI
 ### Download the repo:
    - Download as a ZIP File:
 
-https://github.com/hariperisetla4431/GITAM-AutoLogin/archive/main.zip
+https://github.com/hariperisetla4431/GITAM-Meetings/archive/main.zip
 
 ### Clone the repo:
    - using CLI:
@@ -26,7 +26,7 @@ git clone https://github.com/hariperisetla4431/GITAM-AutoLogin
 ```
    - using link:
                  
-   https://github.com/hariperisetla4431/GITAM-AutoLogin
+   https://github.com/hariperisetla4431/GITAM-Meetings
    
 ### 2. Opening the script
    - The script can be opened by opening the gstudent.exe or gstudent-32.exe files
@@ -39,4 +39,4 @@ git clone https://github.com/hariperisetla4431/GITAM-AutoLogin
 ## Issues
    Ran into an issue? No problem! Create a new issue and I will help you!
    
-   - https://github.com/hariperisetla4431/GITAM-AutoLogin/issues
+   - https://github.com/hariperisetla4431/GITAM-Meetings/issues
